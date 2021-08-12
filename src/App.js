@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 import './App.css';
 import Header from "./components/header";
 import Definitions from "./components/Definitions/Definitions";
-
+import Footer from "./components/Footer/Footer";
 
 function App() {
   const[word, setWord] =useState("");
@@ -20,9 +20,10 @@ function App() {
        console.log(error);
      }
    };
-  
+  console.log(meanings);
   useEffect(()=>{
       dictionaryApi();
+      // eslint-disable-next-line
    },[word, category]);
    
    const PurpleSwitch = withStyles({
@@ -42,13 +43,17 @@ function App() {
 
 
   return (
-    <div className="App" style={{heigh:"100vh", 
+    <div className="App" 
+         style={{heigh:"100vh", 
          backgroundColor: LightTheme ? "#fff" : "#282c34",
          color: LightTheme ? "black" : "white",
          transition: "all 0.5s linear", }}>
       
-      <Container maxWidth="md"
-         style={{display: "flex", flexDirection: "column", height:"100vh", justifyContent: "space-evenly"}}>
+    <Container maxWidth="md"
+         style={{display: "flex", 
+            flexDirection: "column", 
+            height:"100vh", 
+            justifyContent: "space-evenly"}}>
 
         <div
           style={{ position: "absolute", top: 0, right: 15, paddingTop: 10 }}
@@ -60,7 +65,12 @@ function App() {
           />
         </div>
 
-      <Header category={category} setCategory={setCategory} word={word} setWord={setWord} LightTheme={LightTheme}/> 
+      <Header category={category} 
+      setCategory={setCategory} 
+      word={word} 
+      setWord={setWord} 
+      setMeanings={setMeanings}
+      LightTheme={LightTheme}/> 
       
       {meanings && 
       (<Definitions
@@ -70,7 +80,7 @@ function App() {
           LightTheme={LightTheme}
       />)}
       </Container>
-      
+      <Footer />
     </div>
   );
 }
